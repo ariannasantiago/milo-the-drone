@@ -9,7 +9,7 @@ class Direction(enum.Enum):
 
 class SearchRule(BaseRule):
     ''' 
-    Rule to yaw in the direction a detection was last seen in
+    Rule to yaw in the direction a detection was last seen
     '''
 
     hasSeenPerson = False

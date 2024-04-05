@@ -4,6 +4,16 @@ from dronekit import Vehicle
 
 class BaseRule:
 
+    '''
+    Base rule class
+    - vehicle, camera, _targetPosition, _targetYaw
+    - isActive(): bool
+    - update(): updates target position and yaw
+    - reset(): resets target position and yaw to 0
+    - getState(): returns target position and yaw
+    - name(): str
+    '''
+
     vehicle: Vehicle = None
     camera: BaseCamera = None
 
