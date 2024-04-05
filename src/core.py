@@ -5,7 +5,7 @@ from constants import ALTITUDE, HEARTBEAT_TIMEOUT, ALTITUDE_FUZZINESS
 
 # TODO from commands
 from dronekit import Vehicle, VehicleMode
-# TODO from camera.base import BaseCamera
+from camera.base import BaseCamera
 
 # TODO from rules imports
 from rules.base import BaseRule
