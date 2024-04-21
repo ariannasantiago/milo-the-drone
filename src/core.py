@@ -3,14 +3,15 @@ import time
 from enum import enum
 from constants import ALTITUDE, HEARTBEAT_TIMEOUT, ALTITUDE_FUZZINESS
 
-# TODO from commands
+from commands import setPositionTarget
 from dronekit import Vehicle, VehicleMode
 from camera.base import BaseCamera
 
-# TODO from rules imports
 from rules.base import BaseRule
 from rules.none import NoDetectionRule
 from rules.search import SearchRule
+from rules.follow import FollowRule
+from rules.backoff import BackoffRule
 
 class ExecutionState(str, Enum):
     Init            = "INIT"
@@ -40,11 +41,11 @@ class Core:
         self.vehicle.add_attribute_listener('armed', self.armedCallback)
         self.vehicle.add_attribute_listener('last_heartbeat', self.lastHeartbeatCallback)
 
-        ## TODO Setup rules in heirarchy order
-        #self.rules.append(BackoffRule(self.vehicle, self.camera))
-        #self.rules.append(FollowRule(self.vehicle, self.camera))
-        #self.rules.append(SearchRule(self.vehicle, self.camera))
-        #self.rules.append(NoDetectionRule(self.vehicle, self.camera))
+        # Setup rules in heirarchy order
+        self.rules.append(BackoffRule(self.vehicle, self.camera))
+        self.rules.append(FollowRule(self.vehicle, self.camera))
+        self.rules.append(SearchRule(self.vehicle, self.camera))
+        self.rules.append(NoDetectionRule(self.vehicle, self.camera))
 
         # Enter ready state
         self.state = ExecutionState.AwaitingArm
